@@ -31,4 +31,4 @@ interface IUser extends Document {
     password: string;
 }
 
-export const Users = model<IUser>('User', userSchema);
+export const Users = model<IUser>('Users', userSchema);
