@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { Users } from "../models/user.models";
 import bcrypt from 'bcrypt';
 import Token from "../class/token";
+import { verifyToken } from "../middlewares/authentication";
 
 const userRoutes = Router();
 
@@ -76,6 +77,17 @@ userRoutes.post('/create', (req: Request, res: Response) => {
                 err
             })
         })
+});
+
+
+// Update user
+userRoutes.post('/update', verifyToken, (req: any, res: Response) => {
+
+    res.json({
+        ok: true,
+        user: req.user
+    });
+
 });
 
 export default userRoutes;
