@@ -21,4 +21,4 @@ const userSchema = new mongoose_1.Schema({
         required: [true, 'La contrasena es requerida!']
     }
 });
-exports.Users = (0, mongoose_1.model)('User', userSchema);
+exports.Users = (0, mongoose_1.model)('Users', userSchema);
