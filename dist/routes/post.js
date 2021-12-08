@@ -44,4 +44,30 @@ postRoutes.post('/', [authentication_1.verifyToken], (req, res) => {
         res.json(err);
     });
 });
+// Servicios for Upload file
+postRoutes.post('/upload', [authentication_1.verifyToken], (req, res) => {
+    if (!req.files) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: 'No se subio ningun archivo'
+        });
+    }
+    const file = req.files.image;
+    if (!file) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: 'No se subio ningun archivo - image'
+        });
+    }
+    if (!file.mimetype.includes('image')) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: 'Lo que subio no es una imagen'
+        });
+    }
+    res.json({
+        ok: false,
+        file: file.mimetype
+    });
+});
 exports.default = postRoutes;
