@@ -1,11 +1,12 @@
 import Server from "./class/server";
-import userRoutes from "./routes/user";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
+import userRoutes from "./routes/user";
+import postRoutes from "./routes/post";
+
 //instancia
 const server = new Server();
-
 
 
 // Body parser
@@ -14,6 +15,7 @@ server.app.use(bodyParser.json());
 
 // Ruta de la app
 server.app.use('/user', userRoutes);
+server.app.use('/posts', postRoutes);
 
 //DB config
 const url = "mongodb://localhost:27017/petsdb";
