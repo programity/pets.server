@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("./class/server"));
-const user_1 = __importDefault(require("./routes/user"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const user_1 = __importDefault(require("./routes/user"));
+const post_1 = __importDefault(require("./routes/post"));
 //instancia
 const server = new server_1.default();
 // Body parser
@@ -14,6 +15,7 @@ server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(body_parser_1.default.json());
 // Ruta de la app
 server.app.use('/user', user_1.default);
+server.app.use('/posts', post_1.default);
 //DB config
 const url = "mongodb://localhost:27017/petsdb";
 mongoose_1.default.connect(url, {
