@@ -1,11 +1,11 @@
-
-
 import { Router, Response } from 'express';
+import FileSystem from '../class/file-system';
 import { FileUpload } from '../interfaces/file-upload';
 import { verifyToken } from '../middlewares/authentication';
 import { Post } from '../models/post.models';
 
 const postRoutes = Router();
+const fileSystem = new FileSystem();
 
 // getPaginationPost
 postRoutes.get('/', async (req: any, res: Response) => {
@@ -78,8 +78,10 @@ postRoutes.post('/upload', [verifyToken], (req: any, res: Response) => {
         });
     }
 
+    fileSystem.saveImageTemp(file, req.user._id);
+
     res.json({
-        ok: false,
+        ok: true,
         file: file.mimetype
     });
 });
