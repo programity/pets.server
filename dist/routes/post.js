@@ -39,6 +39,8 @@ postRoutes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 postRoutes.post('/', [authentication_1.verifyToken], (req, res) => {
     const body = req.body;
     body.user = req.user._id;
+    // const imagenes = fileSystem.imagesTempForPost( req.usuario._id );
+    // body.imgs = imagenes;
     post_models_1.Post.create(body).then((postDB) => __awaiter(void 0, void 0, void 0, function* () {
         yield (yield postDB.populate('user', '-password'));
         res.json({
@@ -50,7 +52,7 @@ postRoutes.post('/', [authentication_1.verifyToken], (req, res) => {
     });
 });
 // Servicios for Upload file
-postRoutes.post('/upload', [authentication_1.verifyToken], (req, res) => {
+postRoutes.post('/upload', [authentication_1.verifyToken], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.files) {
         return res.status(400).json({
             ok: false,
@@ -70,10 +72,16 @@ postRoutes.post('/upload', [authentication_1.verifyToken], (req, res) => {
             mensaje: 'Lo que subio no es una imagen'
         });
     }
-    fileSystem.saveImageTemp(file, req.user._id);
+    yield fileSystem.saveImageTemp(file, req.user._id);
     res.json({
         ok: true,
         file: file.mimetype
     });
-});
+}));
+// postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
+//     const userId = req.params.userid;
+//     const img    = req.params.img;
+//     const pathFoto = fileSystem.getFotoUrl( userId, img );
+//     res.sendFile( pathFoto );
+// });
 exports.default = postRoutes;

@@ -10,14 +10,24 @@ export default class FileSystem {
 
     saveImageTemp(file: FileUpload, userId: string) {
 
-        // create directory
-        const path = this.createFolderUser(userId);
+        return new Promise((resolve: any, reject: any) => {
+            // create directory
+            const path = this.createFolderUser(userId);
 
-        // name file
-        const fileName = this.generateNameUnique(file.name);
-        console.log(file.name);
-        console.log(fileName);
+            // name file
+            const fileName = this.generateNameUnique(file.name);
 
+            // Move file of Temp a folder
+            file.mv(`${path}/${fileName}`, (err: any) => {
+
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+
+            });
+        });
 
     }
 
@@ -31,7 +41,6 @@ export default class FileSystem {
         const idUnique = uniqid();
 
         return `${idUnique}.${extention}`;
-
 
     }
 
@@ -52,5 +61,54 @@ export default class FileSystem {
         return pathUserTemp;
 
     }
+
+
+    // imagesTempForPost(userId: string) {
+
+    //     const pathTemp = path.resolve(__dirname, '../uploads/', 'temp');
+    //     const pathPost = path.resolve(__dirname, '../uploads/', 'posts');
+
+    //     if (fs.existsSync(pathTemp)) {
+    //         return [];
+    //     }
+
+    //     if (!fs.existsSync(pathPost)) {
+    //         fs.mkdirSync(pathPost);
+    //     }
+
+    //     const imagesTemp = this.getImagesTemp(userId);
+
+    //     imagesTemp.forEach(imagen => {
+    //         fs.renameSync(`${pathTemp}/${imagen}`, `${pathPost}/${imagen}`)
+    //     });
+
+    //     return imagesTemp;
+    // }
+
+
+    // private getImagesTemp(userId: string) {
+
+    //     const pathTemp = path.resolve(__dirname, '../uploads/', 'temp');
+    //     return fs.readdirSync(pathTemp) || [];
+    // }
+
+
+    // getFotoUrl(userId: string, img: string) {
+
+    //     // Path POSTs
+    //     const pathFoto = path.resolve(__dirname, '../uploads', userId, 'posts', img);
+
+
+    //     // Si la imagen existe
+    //     const existe = fs.existsSync(pathFoto);
+    //     if (!existe) {
+    //         return path.resolve(__dirname, '../assets/400x250.jpg');
+    //     }
+
+
+    //     return pathFoto;
+
+    // }
+
 
 }
