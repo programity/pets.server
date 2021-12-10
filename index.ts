@@ -17,6 +17,7 @@ server.app.use(bodyParser.json());
 
 
 // FileUpload
+// { useTempFiles: true }
 server.app.use(fileUpload({ useTempFiles: true }));
 
 // Ruta de la app
