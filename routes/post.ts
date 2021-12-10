@@ -36,8 +36,10 @@ postRoutes.post('/', [verifyToken], (req: any, res: Response) => {
     const body = req.body;
     body.user = req.user._id
 
-    // const imagenes = fileSystem.imagesTempForPost( req.usuario._id );
-    // body.imgs = imagenes;
+    const imagenes = fileSystem.imagesTempForPost(req.user._id);
+    body.imgs = imagenes;
+    console.log(imagenes);
+    
 
 
 
