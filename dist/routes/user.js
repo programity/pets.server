@@ -96,4 +96,11 @@ userRoutes.post('/update', authentication_1.verifyToken, (req, res) => {
         });
     });
 });
+userRoutes.get('/', [authentication_1.verifyToken], (req, res) => {
+    const user = req.user;
+    res.json({
+        ok: true,
+        user
+    });
+});
 exports.default = userRoutes;
