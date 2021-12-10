@@ -93,22 +93,22 @@ export default class FileSystem {
     }
 
 
-    // getFotoUrl(userId: string, img: string) {
+    getPhotoUrl(userId: string, img: string) {
 
-    //     // Path POSTs
-    //     const pathFoto = path.resolve(__dirname, '../uploads', userId, 'posts', img);
-
-
-    //     // Si la imagen existe
-    //     const existe = fs.existsSync(pathFoto);
-    //     if (!existe) {
-    //         return path.resolve(__dirname, '../assets/400x250.jpg');
-    //     }
+        // Path POSTs
+        const pathPhoto = path.resolve(__dirname, '../uploads', userId, 'posts', img);
 
 
-    //     return pathFoto;
+        // Si la imagen existe
+        const exist = fs.existsSync(pathPhoto);
+        if (!exist) {
+            return path.resolve(__dirname, '../assets/400x250.jpg');
+        }
 
-    // }
+
+        return pathPhoto;
+
+    }
 
 
 }
