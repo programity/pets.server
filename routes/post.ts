@@ -36,6 +36,11 @@ postRoutes.post('/', [verifyToken], (req: any, res: Response) => {
     const body = req.body;
     body.user = req.user._id
 
+    // const imagenes = fileSystem.imagesTempForPost( req.usuario._id );
+    // body.imgs = imagenes;
+
+
+
     Post.create(body).then(async (postDB) => {
 
         await (await postDB.populate('user', '-password'));
@@ -52,7 +57,7 @@ postRoutes.post('/', [verifyToken], (req: any, res: Response) => {
 
 // Servicios for Upload file
 
-postRoutes.post('/upload', [verifyToken], (req: any, res: Response) => {
+postRoutes.post('/upload', [verifyToken], async (req: any, res: Response) => {
 
 
     if (!req.files) {
@@ -78,12 +83,25 @@ postRoutes.post('/upload', [verifyToken], (req: any, res: Response) => {
         });
     }
 
-    fileSystem.saveImageTemp(file, req.user._id);
+    await fileSystem.saveImageTemp(file, req.user._id);
 
     res.json({
         ok: true,
         file: file.mimetype
     });
 });
+
+
+// postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
+
+//     const userId = req.params.userid;
+//     const img    = req.params.img;
+
+//     const pathFoto = fileSystem.getFotoUrl( userId, img );
+
+//     res.sendFile( pathFoto );
+
+// });
+
 
 export default postRoutes;

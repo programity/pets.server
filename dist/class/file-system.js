@@ -10,12 +10,21 @@ class FileSystem {
     constructor() { }
     ;
     saveImageTemp(file, userId) {
-        // create directory
-        const path = this.createFolderUser(userId);
-        // name file
-        const fileName = this.generateNameUnique(file.name);
-        console.log(file.name);
-        console.log(fileName);
+        return new Promise((resolve, reject) => {
+            // create directory
+            const path = this.createFolderUser(userId);
+            // name file
+            const fileName = this.generateNameUnique(file.name);
+            // Move file of Temp a folder
+            file.mv(`${path}/${fileName}`, (err) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve();
+                }
+            });
+        });
     }
     generateNameUnique(nameOrigin) {
         const nameArr = nameOrigin.split('.');
