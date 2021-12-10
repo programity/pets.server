@@ -79,10 +79,13 @@ postRoutes.post('/upload', [authentication_1.verifyToken], (req, res) => __await
         file: file.mimetype
     });
 }));
-// postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
-//     const userId = req.params.userid;
-//     const img    = req.params.img;
-//     const pathFoto = fileSystem.getFotoUrl( userId, img );
-//     res.sendFile( pathFoto );
-// });
+postRoutes.get('/imagen/:userid/:img', (req, res) => {
+    const userId = req.params.userid;
+    const img = req.params.img;
+    // res.json({
+    //     userId, img
+    // });
+    const pathPhoto = fileSystem.getPhotoUrl(userId, img);
+    res.sendFile(pathPhoto);
+});
 exports.default = postRoutes;
